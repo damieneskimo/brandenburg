@@ -2,8 +2,6 @@
 
 namespace Silvanite\Brandenburg\Traits;
 
-use Silvanite\Brandenburg\Role;
-
 trait HasRoles
 {
     /**
@@ -13,7 +11,7 @@ trait HasRoles
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->with('getPermissions');
+        return $this->belongsToMany(config('brandenburg.roleModel'))->with('getPermissions');
     }
 
     /**
@@ -51,7 +49,7 @@ trait HasRoles
     public function assignRole($role)
     {
         if (is_string($role)) {
-            return $this->roles()->attach(Role::where('slug', $role)->first());
+            return $this->roles()->attach(config('brandenburg.roleModel')::where('slug', $role)->first());
         }
 
         return $this->roles()->attach($role);
@@ -66,7 +64,7 @@ trait HasRoles
     public function removeRole($role)
     {
         if (is_string($role)) {
-            return $this->roles()->detach(Role::where('slug', $role)->first());
+            return $this->roles()->detach(config('brandenburg.roleModel')::where('slug', $role)->first());
         }
 
         return $this->roles()->detach($role);

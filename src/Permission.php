@@ -2,7 +2,6 @@
 
 namespace Silvanite\Brandenburg;
 
-use Silvanite\Brandenburg\Role;
 use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
@@ -39,7 +38,7 @@ class Permission extends Model
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_permission', 'permission_slug', 'role_id');
+        return $this->belongsToMany(config('brandenburg.roleModel'), 'role_permission', 'permission_slug', 'role_id');
     }
 
     /**
